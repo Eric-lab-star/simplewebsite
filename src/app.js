@@ -6,14 +6,14 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { localsMiddleware } from "./middleware";
 import userRouter from "./router/userRouter";
+import videoRouter from "./router/videoRouter";
 
 const app = express();
 
-app.listen(40000, console.log("server is listening to http://localhost:40000"));
-
 app.set("views", process.cwd() + "/src/views");
-app.use("/uploads", express.static("uploads"));
 app.set("view engine", "pug");
+app.use(express.urlencoded({ extended: true }));
+app.use("/uploads", express.static("uploads"));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -25,6 +25,8 @@ app.use(
   })
 );
 app.use(localsMiddleware);
-app.use(express.urlencoded({ extended: true }));
 app.use("/", globalRouter);
 app.use("/user", userRouter);
+app.use("/video", videoRouter);
+
+app.listen(40000, console.log("server is listening to http://localhost:40000"));

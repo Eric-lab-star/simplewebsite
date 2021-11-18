@@ -74,7 +74,6 @@ export const getProfile = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   res.render("profile", { pageTitle: "Profile", user });
-
   return;
 };
 
@@ -133,5 +132,41 @@ export const postEditProfile = async (req, res) => {
 
   req.session.loggedInUser = updateUser;
   res.redirect(`/user/${id}`);
+  return;
+};
+
+export const getEditPassword = (req, res) => {
+  res.render("changePassword", { pageTitle: "Edit Password" });
+  return;
+};
+
+export const postEditPassword = async (req, res) => {
+  const { id } = req.params;
+  const pageTitle = "Edit Password";
+  const { currentPassword, newPassword1, newPassword2 } = req.body;
+  const user = await User.findById(id);
+
+  const ok = await bcrypt.compare(currentPassword, user.password);
+
+  if (!ok) {
+    res.render("changePassword", {
+      pageTitle,
+      errorMessage: "Wrong Current Password",
+    });
+    return;
+  }
+
+  if (newPassword1 !== newPassword2) {
+    res.render("changePassword", {
+      pageTitle,
+      errorMessage: "New Password does not Match",
+    });
+    return;
+  }
+
+  user.password = newPassword1;
+  user.save();
+  req.session.user = user;
+  res.redirect("/");
   return;
 };

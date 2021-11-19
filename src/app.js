@@ -24,6 +24,7 @@ app.use(
     }),
   })
 );
+
 app.use(localsMiddleware);
 app.use("/", globalRouter);
 app.use("/user", userRouter);

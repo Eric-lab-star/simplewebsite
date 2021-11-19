@@ -1,5 +1,6 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
+import fetch from "node-fetch";
 
 export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
@@ -72,7 +73,7 @@ export const logout = (req, res) => {
 
 export const getProfile = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id);
+  const user = await User.findById(id).populate("videos");
   res.render("profile", { pageTitle: "Profile", user });
   return;
 };
@@ -95,7 +96,7 @@ export const postEditProfile = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(
       id,
       {
-        avatarUrl: file.path,
+        avatarUrl: `/${file.path}`,
       },
       { new: true }
     );
@@ -118,14 +119,14 @@ export const postEditProfile = async (req, res) => {
     });
     return;
   }
-
+  console.log(file);
   const updateUser = await User.findByIdAndUpdate(
     id,
     {
       username,
       name,
       email,
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? `/${file.path}` : avatarUrl,
     },
     { new: true }
   );
@@ -169,4 +170,81 @@ export const postEditPassword = async (req, res) => {
   req.session.user = user;
   res.redirect("/");
   return;
+};
+
+export const getGitLogin = (req, res) => {
+  const baseUrl = "https://github.com/login/oauth/authorize";
+  const config = {
+    client_id: process.env.GH_CLIENT,
+    allow_signup: false,
+    scope: "read:user user:email",
+  };
+  const params = new URLSearchParams(config);
+  const finalUrl = `${baseUrl}?${params}`;
+
+  return res.redirect(finalUrl);
+};
+
+export const endGitLogin = async (req, res) => {
+  const baseUrl = `https://github.com/login/oauth/access_token`;
+  const config = {
+    client_id: process.env.GH_CLIENT,
+    client_secret: process.env.GH_SECRET,
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalURL = `${baseUrl}?${params}`;
+
+  const tokenRequest = await (
+    await fetch(finalURL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  ).json();
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://api.github.com/user";
+    const userData = await (
+      await fetch(`${apiUrl}`, {
+        headers: {
+          Authorization: `token ${access_token}`,
+        },
+      })
+    ).json();
+
+    const emailData = await (
+      await fetch(`${apiUrl}/emails`, {
+        headers: {
+          Authorization: `token ${access_token}`,
+        },
+      })
+    ).json();
+
+    const emailObj = emailData.find(
+      (email) => email.primary === true && email.verified === true
+    );
+    if (!emailObj) {
+      return res.redirect("/join");
+    }
+    let user = await User.findOne({ email: emailObj.email });
+    if (!user) {
+      user = await User.create({
+        name: userData.name,
+        username: userData.login,
+        email: emailObj.email,
+        password: "",
+        socialOnly: true,
+        location: userData.location,
+        avatarUrl: userData.avatar_url,
+      });
+
+      req.session.loggedInUser = user;
+
+      return res.redirect("/");
+    } else {
+      return res.redirect("/join");
+    }
+  }
 };

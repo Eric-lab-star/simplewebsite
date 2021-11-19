@@ -5,3 +5,8 @@ export const localsMiddleware = (req, res, next) => {
 };
 
 export const uploadProfile = multer({ dest: "uploads/profile" });
+
+export const uploadVideo = multer({
+  dest: "uploads/videos",
+  limits: { fieldSize: 8601085 },
+});

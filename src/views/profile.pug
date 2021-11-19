@@ -1,10 +1,18 @@
 extends base
+include mixins/video
 
 block content
-    img(src="/"+ loggedInUser.avatarUrl, width="200", height="300")
-
+    if loggedInUser.avatarUrl
+        img(src=loggedInUser.avatarUrl, width="200", height="300")
+    else 
+        span No Profile Image
     h1=user.username 
     h2=user.name 
     h2=user.email 
     br
+    each video in user.videos
+        +video(video)
+    else
+        span no video
     a(href=`${user.id}/edit`) Edit Profile &rarr;
+    

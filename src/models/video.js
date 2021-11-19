@@ -6,6 +6,8 @@ const videoSchema = mongoose.Schema({
   hashtag: [{ type: String }],
   file: String,
   createdAt: { type: Date, default: new Date() },
+  path: String,
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 videoSchema.static("formatHashtag", function (hashtag) {

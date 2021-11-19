@@ -5,7 +5,9 @@ block content
         span=errorMessage
     
     form(method="post",enctype="multipart/form-data")
-        img(src="/" + loggedInUser.avatarUrl , width="200", height="300")
+        if loggedInUser.avatarUrl
+            img(src=loggedInUser.avatarUrl , width="200", height="300")
+
         label(for="uploadProfile") Upload 
         input(type="file", accept="image/*", name="uploadProfile", id="uploadProfile")
         input(type="text", value=loggedInUser.username, placeholder="username", name="username", required)

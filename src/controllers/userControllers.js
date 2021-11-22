@@ -1,6 +1,8 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
+import { response } from "express";
+import { get } from "mongoose";
 
 export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
@@ -247,4 +249,48 @@ export const endGitLogin = async (req, res) => {
       return res.redirect("/join");
     }
   }
+};
+
+export const getGoogle = (req, res) => {
+  const baseUrl = "https://accounts.google.com/o/oauth2/v2/auth";
+  const config = {
+    client_id: process.env.GG_CLIENT,
+    redirect_uri: "http://localhost:40000/endGG",
+    response_type: "code",
+    access_type: "offline",
+    prompt: "consent",
+    scope:
+      "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+
+  res.redirect(finalUrl);
+};
+
+export const endGoogle = async (req, res) => {
+  const { code } = req.query;
+  const baseUrl = "https://oauth2.googleapis.com/token";
+  const config = {
+    client_secret: process.env.GG_SECRET,
+    client_id: process.env.GG_CLIENT,
+    code,
+    grant_type: "authorization_code",
+    redirect_uri: "http://localhost:40000/endGG",
+  };
+  const params = new URLSearchParams(config);
+  const finalURL = `${baseUrl}?${params}`;
+  const tokenRequest = await (
+    await fetch(finalURL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  ).json();
+  console.log(tokenRequest);
+};
+
+export const test = (req, res) => {
+  res.send("hello");
 };

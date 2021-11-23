@@ -1,8 +1,9 @@
 import User from "../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
-import { response } from "express";
-import { get } from "mongoose";
+import jwt from "jsonwebtoken";
+import { google } from "googleapis";
+import axios from "axios";
 
 export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
@@ -288,9 +289,24 @@ export const endGoogle = async (req, res) => {
       },
     })
   ).json();
-  console.log(tokenRequest);
-};
 
-export const test = (req, res) => {
-  res.send("hello");
+  const { access_token } = tokenRequest;
+  const { id_token } = tokenRequest;
+
+  const response = await fetch(
+    `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
+    {
+      headers: {
+        Authorization: `Bearer ${id_token}`,
+      },
+    }
+  );
+  const data = await response.json();
+
+  const token = jwt.sign(data, "shhhhh");
+
+  const decoded = jwt.verify(token, "shhhhh");
+  console.log(decoded);
+
+  res.redirect("/");
 };

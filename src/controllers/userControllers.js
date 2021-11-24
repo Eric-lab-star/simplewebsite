@@ -2,8 +2,6 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 import fetch from "node-fetch";
 import jwt from "jsonwebtoken";
-import { google } from "googleapis";
-import axios from "axios";
 
 export const getLogin = (req, res) => {
   res.render("login", { pageTitle: "Login" });
@@ -242,16 +240,13 @@ export const endGitLogin = async (req, res) => {
         location: userData.location,
         avatarUrl: userData.avatar_url,
       });
-
-      req.session.loggedInUser = user;
-
-      return res.redirect("/");
     } else {
-      return res.redirect("/join");
+      req.session.loggedInUser = user;
+      return res.redirect("/");
     }
   }
 };
-
+//google login
 export const getGoogle = (req, res) => {
   const baseUrl = "https://accounts.google.com/o/oauth2/v2/auth";
   const config = {
@@ -293,20 +288,37 @@ export const endGoogle = async (req, res) => {
   const { access_token } = tokenRequest;
   const { id_token } = tokenRequest;
 
-  const response = await fetch(
-    `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
-    {
-      headers: {
-        Authorization: `Bearer ${id_token}`,
-      },
-    }
-  );
-  const data = await response.json();
+  const data = await (
+    await fetch(
+      `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
+      {
+        headers: {
+          Authorization: `Bearer ${id_token}`,
+        },
+      }
+    )
+  ).json();
 
-  const token = jwt.sign(data, "shhhhh");
+  const token = jwt.sign(data, process.env.JWT_SECRET);
 
-  const decoded = jwt.verify(token, "shhhhh");
-  console.log(decoded);
+  const googleUser = jwt.verify(token, process.env.JWT_SECRET);
 
-  res.redirect("/");
+  let user = await User.findOne({ email: googleUser.email });
+
+  if (!user) {
+    user = await User.create({
+      name: googleUser.name,
+      username: googleUser.id,
+      email: googleUser.email,
+      password: "",
+      socialOnly: true,
+      location: googleUser.locale,
+      avatarUrl: googleUser.picture,
+    });
+    req.session.loggedInUser = user;
+    return res.redirect("/");
+  } else {
+    req.session.loggedInUser = user;
+    return res.redirect("/");
+  }
 };

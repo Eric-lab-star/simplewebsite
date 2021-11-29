@@ -2,7 +2,8 @@
 @import "./config/_variables";
 @import "./config/reset.scss";
 //componentes
-@import "./components/nav.scss";
+@import "./components/header.scss";
+@import "./components/form.scss";
 body {
   background-color: black;
   width: 100%;
@@ -10,4 +11,16 @@ body {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: white;
   height: 1000vh;
+}
+main {
+  display: grid;
+  grid-template-columns: 72px auto;
+  height: 100%;
+  width: 100%;
+}
+
+.nav {
+  width: inherit;
+  height: 100%;
+  background-color: $nav_color;
 }

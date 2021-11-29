@@ -1,0 +1,25 @@
+.search_form {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  color: white;
+  height: 30px;
+  background-color: rgba(black, 0.8);
+  &[type="text"] {
+    width: 30%;
+    padding: 0px 10px;
+    background-image: url("/search.png");
+    background-size: 15px;
+    background-repeat: no-repeat;
+    background-position: right;
+
+    transition: 0.3s ease-in-out;
+  }
+
+  &[type="text"]:focus {
+    width: 100%;
+  }
+}

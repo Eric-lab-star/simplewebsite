@@ -1,10 +1,7 @@
 extends base
 include mixins/video
 block content
-    form
-        input(type="text", placeholder="search by title", name="key")
-        input(type="submit",value="Sereach")
-        a(href="/") Clear
+
     each video in videos
         +video(video)
     else

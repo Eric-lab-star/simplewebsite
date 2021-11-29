@@ -1,0 +1,28 @@
+.header_container {
+  background-color: $nav_color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+}
+
+.header_home {
+  display: flex;
+  position: static;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+  height: auto;
+  font-size: 20px;
+  .fa-youtube {
+    color: $logo;
+    font-size: 40px;
+    margin: 0px 5px;
+  }
+  .country {
+    font-size: 12px;
+    position: relative;
+    top: -5px;
+  }
+}

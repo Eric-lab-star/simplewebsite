@@ -1,0 +1,50 @@
+.nav {
+  background-color: $nav_color;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  font-size: 27px;
+  height: 100%;
+  .icon {
+    width: 100%;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .icon_desc {
+      font-size: 12px;
+      padding-top: 5px;
+    }
+    &:hover {
+      background-color: gray;
+    }
+  }
+}
+
+.extended_nav {
+  background-color: $nav_color;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  font-size: 27px;
+  height: 100%;
+  width: 300px;
+  .icon {
+    width: 100%;
+    height: 72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon_desc {
+      font-size: 12px;
+      padding-top: 5px;
+    }
+    &:hover {
+      background-color: gray;
+    }
+  }
+}

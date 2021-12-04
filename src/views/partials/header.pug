@@ -1,5 +1,5 @@
 div.header_container
-    a(href='/')
+    div#list
         i(class="fas fa-list")
     
     a(href="/").header_home
@@ -7,7 +7,7 @@ div.header_container
         span.logo YouTube
         span.country KR
 
-    form.search_form
+    form(action="/").search_form
         input(type="text", placeholder="Search by Title", name="key")
         input(type="submit",value="")
 

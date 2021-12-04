@@ -31,17 +31,18 @@
   flex-direction: column;
   font-size: 27px;
   height: 100%;
-  width: 300px;
+  width: 200px;
   .icon {
     width: 100%;
     height: 72px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-
+    padding-left: 20px;
+    box-sizing: border-box;
     .icon_desc {
       font-size: 12px;
-      padding-top: 5px;
+      margin-left: 20px;
     }
     &:hover {
       background-color: gray;

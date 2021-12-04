@@ -5,15 +5,13 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         script(src="/assets/js/main.js" defer)
+        
         script(src="https://kit.fontawesome.com/231f35540a.js" crossorigin="anonymous" defer)
-        link(rel="icon", href="/img/cat.jpeg")
+        
         title #{pageTitle}
         link(rel="stylesheet", href="/assets/css/styles.css")
     body
-        
-        include partials/header.pug
- 
-        
+        include partials/header.pug        
         main
             div.nav#box
                 include partials/sidebar.pug

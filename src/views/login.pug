@@ -1,12 +1,20 @@
 extends base
 
 block content
-    if errorMessage
-        span=errorMessage
-    form(method="post")
-        input(type="text", placeholder="username", name="username", required)
-        input(type="password", placeholder="password", name="password", required)
-        input(type="submit", value="Login")
-    a(href="gitLogin") Login With GitHub
-    br
-    a(href="google") Login with Google
+    div.loginScreen
+        div.errorMessage
+            if errorMessage
+                span=errorMessage
+        div.loginForm
+            form(method="post").testForm
+                span YouTube Login
+                input(type="text", placeholder="username", name="username", required)
+                input(type="password", placeholder="password", name="password", required)
+                input(type="submit", value="Login")
+                div.socialBox
+                    div.lineBox
+                        div.line
+                        div.text or
+                        div.line                        
+                    a(href="gitLogin") Login With GitHub        
+                    a(href="google") Login with Google

@@ -1,8 +1,8 @@
 
 mixin video(video)
 
-    div 
+    div.video
         a(href=`/video/${video.id}`)
-            h4=video.title
-        div=video.createdAt
-    hr
+            img.videoThumb
+            div.title=video.title
+        div.date=video.createdAt

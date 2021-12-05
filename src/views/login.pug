@@ -1,11 +1,11 @@
 extends base
 
 block content
-    div.loginScreen
+    div.formScreen
         div.errorMessage
             if errorMessage
                 span=errorMessage
-        div.loginForm
+        div.formContainer
             form(method="post").testForm
                 span YouTube Login
                 input(type="text", placeholder="username", name="username", required)

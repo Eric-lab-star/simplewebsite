@@ -3,6 +3,15 @@ input {
   height: 30px;
   background-color: rgba(black, 0.8);
 }
+.formContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.formScreen {
+  text-align: center;
+}
 
 form:not(.search_form) {
   background-color: $nav_color;
@@ -12,11 +21,13 @@ form:not(.search_form) {
   align-items: center;
   flex-direction: column;
   width: 400px;
-  height: 350px;
+  height: auto;
   margin-top: 50px;
+  padding-bottom: 20px;
   span {
-    font-size: 20px;
-    font-weight: 500;
+    margin: 20px 0px;
+    font-size: 25px;
+    font-weight: 400;
   }
   input {
     margin-top: 8px;
@@ -24,8 +35,15 @@ form:not(.search_form) {
     height: 40px;
     border-radius: 5px;
     padding-left: 10px;
+    box-sizing: border-box;
     &[type="submit"] {
       background-color: $dark-red;
+      width: 300px;
+    }
+    &[type="file"] {
+      height: auto;
+      padding: 5px 0px;
+      background-color: $nav_color;
     }
   }
   .socialBox {
@@ -48,6 +66,7 @@ form:not(.search_form) {
       }
     }
     a {
+      margin-top: 5px;
       border-radius: 5px;
       width: 200px;
       height: 30px;

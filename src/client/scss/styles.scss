@@ -5,8 +5,11 @@
 @import "./components/header.scss";
 @import "./components/form.scss";
 @import "./components/sidebar.scss";
+@import "./components/videoGrid.scss";
 //screens
 @import "./screens/login.scss";
+@import "./screens/join.scss";
+@import "./screens/profile.scss";
 body {
   background-color: black;
   width: 100%;

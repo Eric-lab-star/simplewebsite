@@ -23,7 +23,10 @@ div.header_container
                     div Upload
             div.hidden_text 
                 a(href=`/user/${loggedInUser._id}`)
-                    <i class="fas fa-user"></i>                
+                    if loggedInUser.avatarUrl === ""
+                        <i class="fas fa-user"></i>
+                    else
+                        img(src=loggedInUser.avatarUrl width=30, height=25)
                     div Profile
         else
             div.hidden_text

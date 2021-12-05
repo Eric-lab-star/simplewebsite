@@ -240,6 +240,8 @@ export const endGitLogin = async (req, res) => {
         location: userData.location,
         avatarUrl: userData.avatar_url,
       });
+      req.session.loggedInUser = user;
+      return res.redirect("/");
     } else {
       req.session.loggedInUser = user;
       return res.redirect("/");

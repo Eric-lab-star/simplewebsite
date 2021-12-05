@@ -1,0 +1,35 @@
+.profileContents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.userInfo {
+  img {
+    background-color: white;
+    border-radius: 50%;
+    width: 300px;
+    height: 300px;
+    border: 3px solid black;
+  }
+  .userDesc {
+    height: 100px;
+    margin: 10px 0px;
+    font-size: 20px;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.editLink {
+  position: relative;
+  left: 400px;
+  top: 30px;
+  font-size: 20px;
+  font-weight: 400;
+  text-decoration: underline;
+}

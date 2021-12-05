@@ -1,0 +1,40 @@
+div.header_container
+    div#list
+        i(class="fas fa-list")
+    
+    a(href="/").header_home
+        i(class="fab fa-youtube") 
+        span.logo YouTube
+        span.country KR
+
+    form(action="/").search_form
+        input(type="text", placeholder="Search by Title", name="key")
+        input(type="submit",value="")
+
+    div.right_box
+        if loggedInUser
+            div.hidden_text
+                a(href="/logout")
+                    <i class="fas fa-sign-out-alt"></i>
+                    div Logout
+            div.hidden_text
+                a(href="/video/upload")
+                    <i class="fas fa-file-upload"></i>
+                    div Upload
+            div.hidden_text 
+                a(href=`/user/${loggedInUser._id}`)
+                    if loggedInUser.avatarUrl === ""
+                        <i class="fas fa-user"></i>
+                    else
+                        img(src=loggedInUser.avatarUrl width=30, height=25)
+                    div Profile
+        else
+            div.hidden_text
+                a(href="/login")
+                    <i class="fas fa-sign-in-alt"></i>
+                    div Login
+            div.hidden_text
+                a(href="/join")
+                    <i class="fas fa-file-signature"></i>              
+                    div Join
+

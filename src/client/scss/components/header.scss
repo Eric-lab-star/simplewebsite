@@ -1,0 +1,60 @@
+.header_container {
+  background-color: $nav_color;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+  font-size: 25px;
+}
+.fa-list {
+  padding-left: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.header_home {
+  display: flex;
+  position: static;
+  justify-content: space-around;
+  align-items: center;
+  width: auto;
+  height: auto;
+  font-size: 20px;
+  .fa-youtube {
+    color: $logo;
+    font-size: 40px;
+    margin: 0px 5px;
+  }
+  .country {
+    font-size: 12px;
+    position: relative;
+    top: -5px;
+  }
+}
+
+.right_box {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 20%;
+  margin-top: 15px;
+  a {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    div {
+      color: $nav_color;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    &:hover {
+      div {
+        color: white;
+      }
+    }
+  }
+}

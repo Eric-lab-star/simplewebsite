@@ -1,12 +1,19 @@
 extends base
 
 block content
-    video(src="/" + video.path, controls)
-    h2=video.title
-    h3=video.description
-    h3=video.hashtag
-    h3 Uploaded by #{video.owner.username}
-    hr
-    a(href=`${video.id}/edit`) Edit Now &rarr;
-    br
-    a(href=`${video.id}/delete`) Delete &rarr;
+    div
+        div.watchVideo
+            video(src="/" + video.path, controls)
+        div.info
+            div.hashtag=video.hashtag
+            div.title=video.title
+            
+            div.uploader
+                img(src=video.owner.avatarUrl)
+                div.moreinfo
+                    div.owner #{video.owner.username}
+                    div.descr=video.description
+        
+        div.link
+            a(href=`${video.id}/edit`) Edit Now &rarr;
+            a(href=`${video.id}/delete`) Delete &rarr;

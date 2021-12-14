@@ -11,6 +11,7 @@ module.exports = {
   entry: {
     main: "./src/client/js/main.js",
     sidebar: "./src/client/js/sidebar.js",
+    video: "./src/client/js/video.js",
   },
   mode: "development",
   watch: true,

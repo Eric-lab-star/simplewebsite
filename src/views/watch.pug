@@ -8,7 +8,9 @@ block content
                 button.playBtn Play
                 button.muteBtn mute
                 input.soundBar(type="range" step="0.1", max=1, min=0, value=0.7)
-                span 00:00
+                span#currentTime 00:00
+                span  / 
+                span#totalTime  00:00 
         div.info
             div.hashtag=video.hashtag
             div.title=video.title

@@ -3,7 +3,7 @@ extends base
 block content
     div
         div.watchVideo
-            video(src="/" + video.path, controls)
+            video(src="/" + video.path, )
             div.controls
                 button.playBtn Play
                 button.muteBtn mute
@@ -11,6 +11,7 @@ block content
                 span#currentTime 00:00
                 span  / 
                 span#totalTime  00:00 
+                button.fullScreenBtn Full Screen
         div.info
             div.hashtag=video.hashtag
             div.title=video.title

@@ -7,6 +7,7 @@ const totalTime = document.querySelector("#totalTime");
 const fullScreenBtn = document.querySelector(".fullScreenBtn");
 const videoContainer = document.querySelector(".watchVideo");
 const controls = document.querySelector("controls");
+const timeRange = document.querySelector("#videoPlayBar");
 let volumeLevel;
 
 video.volume = soundBar.value;
@@ -54,7 +55,6 @@ const formatTime = (seconds) =>
 
 const handleDuration = () => {
   totalTime.innerHTML = formatTime(Math.round(video.duration));
-
   return;
 };
 
@@ -62,6 +62,15 @@ const handleTime = () => {
   currentTime.innerText = formatTime(Math.floor(video.currentTime));
   return;
 };
+
+function handleMoveTimeRange() {
+  timeRange.max = Math.round(video.duration);
+  timeRange.value = Math.floor(video.currentTime);
+}
+
+function handleMoveToTimeRange() {
+  video.currentTime = timeRange.value;
+}
 //full screen
 function handleFullScreen() {
   const fullScreen = document.fullscreenElement;
@@ -87,3 +96,5 @@ video.addEventListener("loadedmetadata", handleDuration);
 video.addEventListener("timeupdate", handleTime);
 fullScreenBtn.addEventListener("click", handleFullScreen);
 video.addEventListener("mousemove", handleMousemove);
+video.addEventListener("timeupdate", handleMoveTimeRange);
+timeRange.addEventListener("input", handleMoveToTimeRange);

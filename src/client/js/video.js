@@ -6,7 +6,7 @@ const currentTime = document.querySelector("#currentTime");
 const totalTime = document.querySelector("#totalTime");
 const fullScreenBtn = document.querySelector(".fullScreenBtn");
 const videoContainer = document.querySelector(".watchVideo");
-const controls = document.querySelector("controls");
+const controls = document.querySelector(".controls");
 const timeRange = document.querySelector("#videoPlayBar");
 let volumeLevel;
 
@@ -76,17 +76,24 @@ function handleFullScreen() {
   const fullScreen = document.fullscreenElement;
   if (!fullScreen) {
     videoContainer.requestFullscreen();
+    fullScreenBtn.innerHTML = "Exit Full Screen";
+    controls.hidden = true;
   } else {
+    fullScreenBtn.innterHTML = "Full Screen";
     document.exitFullscreen();
   }
 }
 
+let timeoutID;
 function handleMousemove() {
-  video.classList.add("showing");
+  clearTimeout(timeoutID);
+  controls.classList.add("showing");
+  setTimeout(controls.classList.remove("showing"), 3000);
+  video.addEventListener("mouseleave", handleMouseLeave);
 }
 
 function handleMouseLeave() {
-  setTimeout(() => video.classList.remove("showing"), 30000);
+  timeoutID = setTimeout(() => controls.classList.remove("showing"), 500);
 }
 
 playBtn.addEventListener("click", handlePlayBtn);
@@ -95,6 +102,9 @@ soundBar.addEventListener("input", handleSound);
 video.addEventListener("loadedmetadata", handleDuration);
 video.addEventListener("timeupdate", handleTime);
 fullScreenBtn.addEventListener("click", handleFullScreen);
+//
 video.addEventListener("mousemove", handleMousemove);
+//video.addEventListener("mouseleave", handleMouseLeave);
+//
 video.addEventListener("timeupdate", handleMoveTimeRange);
 timeRange.addEventListener("input", handleMoveToTimeRange);

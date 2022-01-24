@@ -83,17 +83,14 @@ function handleFullScreen() {
     document.exitFullscreen();
   }
 }
-
+//show video controls
 let timeoutID;
-function handleMousemove() {
+function handleMousemove(event) {
   clearTimeout(timeoutID);
-  controls.classList.add("showing");
-  setTimeout(controls.classList.remove("showing"), 3000);
-  video.addEventListener("mouseleave", handleMouseLeave);
-}
-
-function handleMouseLeave() {
-  timeoutID = setTimeout(() => controls.classList.remove("showing"), 500);
+  controls.hidden = false;
+  timeoutID = setTimeout(() => {
+    controls.hidden = true;
+  }, 2000);
 }
 
 playBtn.addEventListener("click", handlePlayBtn);
@@ -104,7 +101,8 @@ video.addEventListener("timeupdate", handleTime);
 fullScreenBtn.addEventListener("click", handleFullScreen);
 //
 video.addEventListener("mousemove", handleMousemove);
-//video.addEventListener("mouseleave", handleMouseLeave);
 //
 video.addEventListener("timeupdate", handleMoveTimeRange);
+
+//
 timeRange.addEventListener("input", handleMoveToTimeRange);

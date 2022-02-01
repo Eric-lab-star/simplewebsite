@@ -5,4 +5,5 @@ mixin video(video)
         a(href=`/video/${video.id}`)
             img.videoThumb
             div.title=video.title
+            div.views=video.views
         div.date=video.createdAt

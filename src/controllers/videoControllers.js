@@ -76,3 +76,14 @@ export const deleteVideo = async (req, res) => {
   await Video.findByIdAndDelete(id);
   res.redirect("/");
 };
+
+export const apiView = async (req, res) => {
+  const { id } = req.params;
+  const video = await video.findById(id);
+  if (!video) {
+    return res.status(404);
+  }
+  video.views = video.views + 1;
+  await video.save();
+  res.status(200);
+};

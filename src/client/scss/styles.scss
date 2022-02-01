@@ -21,7 +21,8 @@ body {
 }
 main {
   display: grid;
-  grid-template-columns: 0.5fr 9.5fr;
+  grid-template-columns: 0.3fr 9.7fr;
   height: 100%;
   width: 100%;
+  position: relative;
 }

@@ -1,10 +1,10 @@
-const playBtn = document.querySelector(".playBtn");
+const playBtn = document.getElementById("playBtn");
 const video = document.querySelector("video");
-const muteBtn = document.querySelector(".muteBtn");
+const muteBtn = document.getElementById("muteBtn");
 const soundBar = document.querySelector(".soundBar");
 const currentTime = document.querySelector("#currentTime");
 const totalTime = document.querySelector("#totalTime");
-const fullScreenBtn = document.querySelector(".fullScreenBtn");
+const fullScreenBtn = document.getElementById("fullScreenBtn");
 const videoContainer = document.querySelector(".watchVideo");
 const controls = document.querySelector(".controls");
 const timeRange = document.querySelector("#videoPlayBar");
@@ -15,23 +15,23 @@ video.volume = soundBar.value;
 const handlePlayBtn = () => {
   if (video.paused === true) {
     video.play();
-    playBtn.innerText = "Pause";
+    playBtn.classList = "fas fa-pause";
   } else {
     video.pause();
-    playBtn.innerText = "Play";
+    playBtn.classList = "fas fa-play";
   }
 };
 
 //sound
 const handleMuteBtn = () => {
   if (video.muted) {
-    muteBtn.innerText = "Mute";
+    muteBtn.classList = "fas fa-volume-up";
     soundBar.value = volumeLevel;
 
     video.muted = false;
     return;
   } else {
-    muteBtn.innerText = "Unmute";
+    muteBtn.classList = "fas fa-volume-mute";
 
     soundBar.value = 0;
 
@@ -76,10 +76,10 @@ function handleFullScreen() {
   const fullScreen = document.fullscreenElement;
   if (!fullScreen) {
     videoContainer.requestFullscreen();
-    fullScreenBtn.innerHTML = "Exit Full Screen";
+    fullScreenBtn.classList = "fas fa-compress";
     controls.hidden = true;
   } else {
-    fullScreenBtn.innterHTML = "Full Screen";
+    fullScreenBtn.classList = "fas fa-expand";
     document.exitFullscreen();
   }
 }
@@ -87,9 +87,12 @@ function handleFullScreen() {
 let timeoutID;
 function handleMousemove(event) {
   clearTimeout(timeoutID);
-  controls.hidden = false;
+  console.log("remove hide");
+  controls.classList.remove("hide");
+
   timeoutID = setTimeout(() => {
-    controls.hidden = true;
+    console.log("ass hide");
+    controls.classList.add("hide");
   }, 2000);
 }
 
@@ -99,7 +102,7 @@ soundBar.addEventListener("input", handleSound);
 video.addEventListener("loadedmetadata", handleDuration);
 video.addEventListener("timeupdate", handleTime);
 fullScreenBtn.addEventListener("click", handleFullScreen);
-//
+
 video.addEventListener("mousemove", handleMousemove);
 //
 video.addEventListener("timeupdate", handleMoveTimeRange);

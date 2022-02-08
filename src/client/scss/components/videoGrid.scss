@@ -1,14 +1,25 @@
 .videogrid {
+  background-color: rgba(255, 0, 0, 0.324);
+  width: 100%;
   padding: 23px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(200px, 1fr));
+  box-sizing: border-box;
+  grid-template-columns: repeat(auto-fill, minmax(200px, auto));
   grid-template-rows:
     minmax(100px, max-content)
     repeat(auto-fill, 200px);
   grid-gap: 20px;
 }
+@media screen and (max-width: 530px) {
+  .videogrid {
+    //margin-left: 56px;
+    background-color: green;
+    grid-template-columns: 325px;
+  }
+}
 
 .video {
+  box-sizing: border-box;
   border: 1px solid red;
 }
 .video:hover {

@@ -9,7 +9,8 @@ div.header_container
 
     form(action="/").search_form
         input(type="text", placeholder="Search by Title", name="key")
-        input(type="submit",value="")
+        button
+            <i class="fas fa-search"></i>
 
     div.right_box
         if loggedInUser

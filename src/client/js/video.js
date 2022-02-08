@@ -8,6 +8,7 @@ const fullScreenBtn = document.getElementById("fullScreenBtn");
 const videoContainer = document.querySelector(".watchVideo");
 const controls = document.querySelector(".controls");
 const timeRange = document.querySelector("#videoPlayBar");
+
 let volumeLevel;
 
 video.volume = soundBar.value;

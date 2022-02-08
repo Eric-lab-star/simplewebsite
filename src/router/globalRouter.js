@@ -12,6 +12,8 @@ import {
   test,
 } from "../controllers/userControllers";
 import { home } from "../controllers/videoControllers";
+
+import Video from "../models/video";
 const globalRouter = express.Router();
 
 globalRouter.get("/", home);

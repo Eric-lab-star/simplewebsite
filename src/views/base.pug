@@ -13,7 +13,8 @@ html(lang="en")
     body
         include partials/header.pug        
         main
-            include partials/sidebar.pug            
+            if !video
+                include partials/sidebar.pug            
             block content
         block script 
 

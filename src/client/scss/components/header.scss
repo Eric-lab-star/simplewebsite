@@ -1,5 +1,8 @@
 .header_container {
   background-color: $nav_color;
+  border-bottom: 0.5px solid rgb(75, 73, 73);
+  position: fixed;
+  z-index: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +19,6 @@
 
 .header_home {
   display: flex;
-  position: static;
   justify-content: space-around;
   align-items: center;
   width: auto;
@@ -37,19 +39,26 @@
 
 .search_form {
   width: 90%;
-  padding: 0px 5px;
+  height: 90%;
+  //padding: 0px 5px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  button {
+    background-color: #323232;
+    border-style: none;
+    width: 30px;
+    height: 28px;
+  }
   input {
     &[type="text"] {
       width: 30%;
+      height: 28px;
       padding: 0px 10px;
-      background-image: url("/search.png");
-      background-size: 15px;
-      background-repeat: no-repeat;
-      background-position: right;
-
       transition: 0.3s ease-in-out;
+    }
+    &button {
+      background-color: $nav_color;
     }
 
     &[type="text"]:focus {

@@ -3,13 +3,13 @@ import User from "../models/User";
 
 export const home = async (req, res) => {
   const { key } = req.query;
-  let videos = await Video.find({}).sort({ createdAt: "desc" });
+
+  let videos = await Video.find().sort({ createdAt: "desc" });
   if (key) {
     videos = await Video.find({
       title: { $regex: new RegExp(key, "i") },
     }).sort({ createdAt: "desc" });
   }
-
   res.render("home", { pageTitle: "home", videos });
 };
 
@@ -17,7 +17,7 @@ export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
 
-  res.render("watch", { pageTitle: "Watch", video });
+  res.render("watch", { pageTitle: video.title, video });
 
   return;
 };

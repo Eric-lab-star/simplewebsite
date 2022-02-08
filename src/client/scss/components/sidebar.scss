@@ -1,5 +1,6 @@
 .nav {
   background-color: $nav_color;
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -26,6 +27,10 @@
   }
 }
 
+.hideNav {
+  display: none;
+}
+
 .extended_nav {
   background-color: $nav_color;
   display: flex;
@@ -49,6 +54,25 @@
     }
     &:hover {
       background-color: gray;
+    }
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .nav {
+    display: none;
+  }
+  .extended_nav {
+    background-color: $nav_color;
+    opacity: 0.93;
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    .icon {
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
     }
   }
 }

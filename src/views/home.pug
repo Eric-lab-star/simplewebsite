@@ -1,7 +1,11 @@
 extends base
 include mixins/video
+include mixins/message
 block content
+
     div.videogrid
+        if messages.error
+            +message("error", messages.error)
         each video in videos
             +video(video) 
         else

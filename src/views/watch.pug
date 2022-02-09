@@ -24,31 +24,31 @@ block content
                             span.views #{video.views} views | 
                             span.createdAt #{video.createdAt}
                         div.WatchBtnBox
-                            a
+                            a#likeBtn
                                 <i class="far fa-thumbs-up"></i>
-                                span 0
-                            a
+                                span #{video.likes}
+                            a#dislikeBtn
                                 <i class="far fa-thumbs-down"></i>
-                                span Dislike
-                            a
+                                span #{video.dislikes}
+                            a#shareBtn(data-clipboard-text=fullURL)
                                 <i class="far fa-share-square"></i>
-                                span Share
-                            a
+                                span Copy Link
+                            a#downloadBtn
                                 <i class="far fa-save"></i>
                                 span Save
                 div.uploaderInformationBox
                     div.uploaderInfoBox
                         img.uploaderImg(src=video.owner.avatarUrl)
                         div.uploaderName #{video.owner.username}
-                            
-                    if loggedInUser._id === video.owner.id
-                        div.editAndDelteBtnBox
-                            a(href=`${video.id}/edit`)
-                                <i class="far fa-edit"></i>
-                                span Edit
-                            a(href=`${video.id}/delete`) 
-                                <i class="far fa-trash-alt"></i>
-                                span Delete
+                    if loggedInUser
+                        if loggedInUser._id === video.owner.id 
+                            div.editAndDelteBtnBox
+                                a(href=`${video.id}/edit`)
+                                    <i class="far fa-edit"></i>
+                                    span Edit
+                                a(href=`${video.id}/delete`) 
+                                    <i class="far fa-trash-alt"></i>
+                                    span Delete
                     
                 div.videoDescriptionBox
                         div.description #{video.description}            
@@ -61,5 +61,6 @@ block content
                     span Nothing found
 
                 
-block script 
+block script
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
     script(src="/assets/js/video.js") 

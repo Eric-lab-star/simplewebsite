@@ -12,16 +12,18 @@ export const uploadVideo = multer({
   limits: { fieldSize: 8601085 },
 });
 
-export const isloggedIn = (req, res, next) => {
+export const banLoggedInUser = (req, res, next) => {
   if (req.session.loggedInUser) {
+    req.flash("error", "You are Logged In");
     res.redirect("/");
   } else {
     next();
   }
 };
 
-export const notLoggedIn = (rea, res, next) => {
+export const notLoggedIn = (req, res, next) => {
   if (!req.session.loggedInUser) {
+    req.flash("error", "You are Not Logged In");
     res.redirect("/");
   } else {
     next();

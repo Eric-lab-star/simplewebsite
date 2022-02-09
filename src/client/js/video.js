@@ -9,9 +9,12 @@ const videoContainer = document.querySelector(".watchVideo");
 const controls = document.querySelector(".controls");
 const timeRange = document.querySelector("#videoPlayBar");
 const view = document.querySelector(".views");
-
+const likeBtn = document.getElementById("likeBtn");
+const dislikeBtn = document.getElementById("dislikeBtn");
+const shareBtn = document.getElementById("shareBtn");
+const downloadBtn = document.getElementById("downloadBtn");
+const videoId = videoContainer.dataset.videoid;
 let volumeLevel;
-
 video.volume = soundBar.value;
 //play
 const handlePlayBtn = () => {
@@ -94,15 +97,64 @@ function handleMousemove(event) {
     controls.classList.add("hide");
   }, 2000);
 }
-
+const apiPath = `/api/video/${videoId}/`;
 function handleEnded() {
   view.innerText = parseInt(view.innerText) + 1 + ` views | `;
-  const videoid = videoContainer.dataset.videoid;
-  fetch(`/api/video/${videoid}/view`, {
+
+  fetch(apiPath + "view", {
     method: "POST",
   });
 }
-console.log(videoContainer.dataset.videoid);
+
+function handleAddLike() {
+  likeBtn.children[1].innerText = parseInt(likeBtn.children[1].innerText) + 1;
+  likeBtn.removeEventListener("click", handleAddLike);
+  likeBtn.addEventListener("click", handleRemoveLike);
+  fetch(apiPath + "addLikeBtn", {
+    method: "POST",
+  });
+}
+
+function handleRemoveLike() {
+  likeBtn.children[1].innerText = parseInt(likeBtn.children[1].innerText) - 1;
+  likeBtn.removeEventListener("click", handleRemoveLike);
+  likeBtn.addEventListener("click", handleAddLike);
+  fetch(apiPath + "removeLikeBtn", {
+    method: "POST",
+  });
+}
+
+function handleAddDislike() {
+  dislikeBtn.children[1].innerText =
+    parseInt(dislikeBtn.children[1].innerText) + 1;
+  dislikeBtn.removeEventListener("click", handleAddDislike);
+  dislikeBtn.addEventListener("click", handleRemoveDislike);
+  fetch(apiPath + "addDislikeBtn", {
+    method: "POST",
+  });
+}
+
+function handleRemoveDislike() {
+  dislikeBtn.children[1].innerText =
+    parseInt(dislikeBtn.children[1].innerText) - 1;
+  dislikeBtn.removeEventListener("click", handleRemoveDislike);
+  dislikeBtn.addEventListener("click", handleAddDislike);
+  fetch(apiPath + "removeDislikeBtn", {
+    method: "POST",
+  });
+}
+
+const clipboard = new ClipboardJS("#shareBtn");
+
+function handleCopy() {
+  clipboard.on("success", function (e) {
+    console.log("Copied!");
+  });
+  clipboard.on("error", function (e) {
+    console.log("Error!");
+  });
+}
+
 playBtn.addEventListener("click", handlePlayBtn);
 muteBtn.addEventListener("click", handleMuteBtn);
 soundBar.addEventListener("input", handleSound);
@@ -111,5 +163,9 @@ video.addEventListener("timeupdate", handleTime);
 video.addEventListener("mousemove", handleMousemove);
 video.addEventListener("timeupdate", handleMoveTimeRange);
 video.addEventListener("ended", handleEnded);
+
+likeBtn.addEventListener("click", handleAddLike);
+dislikeBtn.addEventListener("click", handleAddDislike);
+shareBtn.addEventListener("click", handleCopy);
 timeRange.addEventListener("input", handleMoveToTimeRange);
 fullScreenBtn.addEventListener("click", handleFullScreen);

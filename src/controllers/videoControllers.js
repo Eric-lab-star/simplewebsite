@@ -17,8 +17,8 @@ export const watch = async (req, res) => {
   const { id } = req.params;
   const videos = await Video.find().sort({ createdAt: "desc" });
   const video = await Video.findById(id).populate("owner");
-
-  res.render("watch", { pageTitle: video.title, video, videos });
+  const fullURL = req.protocol + "://" + req.get("host") + req.originalUrl;
+  res.render("watch", { pageTitle: video.title, video, videos, fullURL });
 
   return;
 };
@@ -78,6 +78,7 @@ export const deleteVideo = async (req, res) => {
   res.redirect("/");
 };
 
+//BTNs
 export const registerView = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id);
@@ -85,6 +86,51 @@ export const registerView = async (req, res) => {
     return res.sendStatus(404);
   }
   video.views = video.views + 1;
+  await video.save();
+  return res.sendStatus(200);
+};
+
+export const addLike = async (req, res) => {
+  console.log("ok");
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.likes = video.likes + 1;
+  await video.save();
+  return res.sendStatus(200);
+};
+export const removeLike = async (req, res) => {
+  console.log("ok");
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.likes = video.likes - 1;
+  await video.save();
+  return res.sendStatus(200);
+};
+
+export const addDislike = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.dislikes = video.dislikes + 1;
+  await video.save();
+  return res.sendStatus(200);
+};
+
+export const removeDislike = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.dislikes = video.dislikes - 1;
   await video.save();
   return res.sendStatus(200);
 };

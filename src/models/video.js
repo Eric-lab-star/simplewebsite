@@ -5,7 +5,10 @@ const videoSchema = mongoose.Schema({
   description: String,
   hashtag: [{ type: String }],
   file: String,
-  createdAt: { type: Date, default: new Date() },
+  createdAt: {
+    type: String,
+    default: new Date().toISOString().substring(0, 10),
+  },
   path: String,
   views: { type: Number, default: 0 },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

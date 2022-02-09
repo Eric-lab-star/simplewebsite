@@ -18,5 +18,6 @@ block content
                 input(type="email", value=loggedInUser.email, placeholder="email", name="email", required)
                 input(type="submit", value="Save Changes")
                 br
-                span 
-                    a(href="editPassword") Change Password &rarr;
+                if !loggedInUser.socialOnly
+                    span 
+                        a(href="editPassword") Change Password &rarr;

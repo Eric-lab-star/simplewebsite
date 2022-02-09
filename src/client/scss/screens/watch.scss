@@ -1,21 +1,23 @@
-.contentBox {
-  display: grid;
-  grid-template-rows: 4fr 0.3fr 0.3fr;
-  grid-gap: 20px;
+.hide {
+  display: none;
 }
 
+.contentBox {
+  display: flex;
+  flex-direction: column;
+}
+//wathVideo Style
 .watchVideo {
   height: 720px;
   display: flex;
   flex-direction: column;
+  background-color: black;
 }
-
-video {
+.watchVideo video {
   width: 100%;
   height: 100%;
 }
-
-.controls {
+.watchVideo .controls {
   border-radius: 10px;
   display: flex;
   position: relative;
@@ -23,55 +25,101 @@ video {
   align-items: center;
   width: 100%;
   background-color: rgba(84, 82, 82, 0.831);
+  i {
+    margin: 0 10px;
+  }
 }
-i {
-  margin: 0 10px;
-}
-
-i:hover {
-  color: red;
-}
-
-.hide {
-  display: none;
-}
-
 #videoPlayBar {
   width: 100%;
 }
+//video information and other videos
+.videoInfoAndMoreVideo {
+  display: flex;
+}
 
-.info {
+//info and CommnetBoX style
+.infoAndCommentsBox {
+  width: 100%;
   margin: 10px;
-  .title {
-    font-weight: 500;
-    font-size: 20px;
-  }
-  .hashtag {
-    color: $logo;
-    font-size: 15px;
-  }
-
-  .uploader {
-    display: flex;
-    img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
+  background-color: rgba(128, 33, 33, 0.523);
+  .infoBox {
+    height: 100px;
+    background-color: black;
+    .titleAndHashtagBox {
+      .hashtag {
+        color: #3da2f9;
+        font-size: 13px;
+      }
+      .title {
+        margin-top: 10px;
+        font-weight: 510;
+        font-size: 20px;
+      }
     }
+    .createdAtAndBtnsBox {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      .viewsAndDateBox {
+        font-size: 14px;
+        color: #848484;
+      }
+      .WatchBtnBox a {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 510;
+        cursor: pointer;
+        margin-right: 10px;
+        font-size: 15px;
+        i {
+          padding: 5px;
+        }
+      }
+    }
+  }
+  .uploaderInformationBox {
+    background-color: black;
+    padding: 10px 0px;
+    border-top: 1px solid rgba(80, 79, 79, 0.591);
+
+    display: flex;
     align-items: center;
+    .uploaderInfoBox {
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      .uploaderImg {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+      }
+    }
+    .editAndDelteBtnBox {
+      font-size: 14px;
+      margin-right: 10px;
+      font-weight: 510;
+      display: flex;
+      i {
+        display: inline;
+        padding: 10px;
+      }
+    }
   }
 }
-//
-.link {
-  width: 100%;
+.videoDescriptionBox {
+  border-bottom: 1px solid rgba(80, 79, 79, 0.591);
+  background-color: black;
+  margin-top: 0px;
+  padding: 0px 150px 10px 50px;
+  font-size: 15px;
+}
 
-  text-align: center;
+//comment Box style
+.commentBox {
+  background-color: green;
+}
 
-  a {
-    padding: 5px 10px;
-    margin-left: 10px;
-    border-radius: 10px;
-    background-color: $dark-red;
-    box-sizing: border-box;
-  }
+.videogrid.watch {
+  background-color: blue;
+  width: 414px;
 }

@@ -17,11 +17,12 @@
   },
   "homepage": "https://github.com/Eric-lab-star/simplewebsite#readme",
   "dependencies": {
+    "@babel/runtime": "^7.17.0",
+    "@babel/runtime-corejs3": "^7.17.0",
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
     "bcrypt": "^5.0.1",
     "connect-mongo": "^4.6.0",
-    "dependencies": "^0.0.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",

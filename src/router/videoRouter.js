@@ -1,4 +1,4 @@
-import { uploadVideo } from "../middleware";
+import { uploadVideo, notLoggedIn } from "../middleware";
 import express from "express";
 import {
   getUpload,
@@ -13,8 +13,11 @@ const videoRouter = express.Router();
 videoRouter.route("/:id([a-f0-9]{24})").get(watch);
 videoRouter
   .route("/upload")
-  .get(getUpload)
+  .get(notLoggedIn, getUpload)
   .post(uploadVideo.single("video"), postUpload);
-videoRouter.route("/:id([a-f0-9]{24})/edit").get(getEdit).post(postEdit);
-videoRouter.get("/:id([0-9a-f]{24})/delete", deleteVideo);
+videoRouter
+  .route("/:id([a-f0-9]{24})/edit")
+  .get(notLoggedIn, getEdit)
+  .post(postEdit);
+videoRouter.get("/:id([0-9a-f]{24})/delete", notLoggedIn, deleteVideo);
 export default videoRouter;

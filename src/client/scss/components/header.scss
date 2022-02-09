@@ -10,10 +10,11 @@
   height: 54px;
   font-size: 25px;
 }
-.fa-list {
+.fa-bars {
   padding-left: 20px;
   &:hover {
     cursor: pointer;
+    color: $logo;
   }
 }
 
@@ -27,11 +28,16 @@
   padding-right: 10px;
   .fa-youtube {
     color: $logo;
-    font-size: 40px;
-    margin: 0px 5px;
+    font-size: 25px;
+    margin: 0px 5px 0px 23px;
+  }
+  .logo {
+    font-weight: 300;
+    font-family: "Oswald", sans-serif;
   }
   .country {
-    font-size: 12px;
+    font-size: 10px;
+    color: #848484;
     position: relative;
     top: -5px;
   }

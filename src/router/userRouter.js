@@ -7,20 +7,20 @@ import {
   getEditPassword,
   postEditPassword,
 } from "../controllers/userControllers";
-import { uploadProfile } from "../middleware";
+import { uploadProfile, notLoggedIn } from "../middleware";
 
 const userRouter = express.Router();
 
-userRouter.get("/:id([0-9a-f]{24})", getProfile);
+userRouter.get("/:id([0-9a-f]{24})", notLoggedIn, getProfile);
 
 userRouter
   .route("/:id([0-9a-f]{24})/edit")
-  .get(getEditProfile)
+  .get(notLoggedIn, getEditProfile)
   .post(uploadProfile.single("uploadProfile"), postEditProfile);
 
 userRouter
   .route("/:id([0-9a-f]{24})/editPassword")
-  .get(getEditPassword)
+  .get(notLoggedIn, getEditPassword)
   .post(postEditPassword);
 
 export default userRouter;

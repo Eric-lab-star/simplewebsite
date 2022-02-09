@@ -8,6 +8,7 @@ const fullScreenBtn = document.getElementById("fullScreenBtn");
 const videoContainer = document.querySelector(".watchVideo");
 const controls = document.querySelector(".controls");
 const timeRange = document.querySelector("#videoPlayBar");
+const view = document.querySelector(".views");
 
 let volumeLevel;
 
@@ -88,25 +89,27 @@ function handleFullScreen() {
 let timeoutID;
 function handleMousemove(event) {
   clearTimeout(timeoutID);
-  console.log("remove hide");
   controls.classList.remove("hide");
-
   timeoutID = setTimeout(() => {
-    console.log("ass hide");
     controls.classList.add("hide");
   }, 2000);
 }
 
+function handleEnded() {
+  view.innerText = parseInt(view.innerText) + 1 + ` views | `;
+  const videoid = videoContainer.dataset.videoid;
+  fetch(`/api/video/${videoid}/view`, {
+    method: "POST",
+  });
+}
+console.log(videoContainer.dataset.videoid);
 playBtn.addEventListener("click", handlePlayBtn);
 muteBtn.addEventListener("click", handleMuteBtn);
 soundBar.addEventListener("input", handleSound);
 video.addEventListener("loadedmetadata", handleDuration);
 video.addEventListener("timeupdate", handleTime);
-fullScreenBtn.addEventListener("click", handleFullScreen);
-
 video.addEventListener("mousemove", handleMousemove);
-//
 video.addEventListener("timeupdate", handleMoveTimeRange);
-
-//
+video.addEventListener("ended", handleEnded);
 timeRange.addEventListener("input", handleMoveToTimeRange);
+fullScreenBtn.addEventListener("click", handleFullScreen);

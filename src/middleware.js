@@ -1,3 +1,4 @@
+import req from "express/lib/request";
 import multer from "multer";
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedInUser = req.session.loggedInUser;
@@ -11,16 +12,20 @@ export const uploadVideo = multer({
   limits: { fieldSize: 8601085 },
 });
 
-export const goNextPage = (req, res, next) => {
-  console.log(req.query.page);
-  next();
+export const isloggedIn = (req, res, next) => {
+  if (req.session.loggedInUser) {
+    res.redirect("/");
+  } else {
+    next();
+  }
 };
 
-export const addQuery = (req, res, next) => {
-  req.query.limit = 5;
-  req.query.page = PAGE;
-
-  next();
+export const notLoggedIn = (rea, res, next) => {
+  if (!req.session.loggedInUser) {
+    res.redirect("/");
+  } else {
+    next();
+  }
 };
 
 export const paginatedResults = (model) => {

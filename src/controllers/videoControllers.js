@@ -15,9 +15,10 @@ export const home = async (req, res) => {
 
 export const watch = async (req, res) => {
   const { id } = req.params;
+  const videos = await Video.find().sort({ createdAt: "desc" });
   const video = await Video.findById(id).populate("owner");
 
-  res.render("watch", { pageTitle: video.title, video });
+  res.render("watch", { pageTitle: video.title, video, videos });
 
   return;
 };
@@ -77,13 +78,13 @@ export const deleteVideo = async (req, res) => {
   res.redirect("/");
 };
 
-export const apiView = async (req, res) => {
+export const registerView = async (req, res) => {
   const { id } = req.params;
-  const video = await video.findById(id);
+  const video = await Video.findById(id);
   if (!video) {
-    return res.status(404);
+    return res.sendStatus(404);
   }
   video.views = video.views + 1;
   await video.save();
-  res.status(200);
+  return res.sendStatus(200);
 };

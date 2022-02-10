@@ -9,6 +9,9 @@ const videoSchema = mongoose.Schema({
     type: String,
     default: new Date().toISOString().substring(0, 10),
   },
+  comments: [
+    { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
+  ],
   path: String,
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },

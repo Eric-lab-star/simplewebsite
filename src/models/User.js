@@ -9,6 +9,9 @@ const userSchema = Schema({
   email: { type: String, required: true },
   avatarUrl: String,
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
+  comments: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Comment", required: true },
+  ],
   socialOnly: Boolean,
   location: String,
 });

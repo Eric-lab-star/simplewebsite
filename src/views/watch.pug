@@ -53,7 +53,9 @@ block content
                 div.videoDescriptionBox
                         div.description #{video.description}            
                 div.commentBox
-                    h1 comments
+                    form#videoCommentForm
+                        textarea
+                        button Add Comment 
             div.videogrid.watch
                 each video in videos
                     +video(video) 
@@ -64,3 +66,4 @@ block content
 block script
     <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
     script(src="/assets/js/video.js") 
+    script(src="/assets/js/comment.js") 

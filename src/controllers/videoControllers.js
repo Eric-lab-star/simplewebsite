@@ -1,5 +1,6 @@
 import Video from "../models/video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 export const home = async (req, res) => {
   const { key } = req.query;
@@ -16,7 +17,8 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const videos = await Video.find().sort({ createdAt: "desc" });
-  const video = await Video.findById(id).populate("owner");
+  const video = await Video.findById(id).populate("owner").populate("comments");
+  console.log(video);
   const fullURL = req.protocol + "://" + req.get("host") + req.originalUrl;
   res.render("watch", { pageTitle: video.title, video, videos, fullURL });
 
@@ -133,4 +135,25 @@ export const removeDislike = async (req, res) => {
   video.dislikes = video.dislikes - 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const addComment = async (req, res) => {
+  const {
+    params: { id },
+    body: { text },
+    session: { loggedInUser },
+  } = req;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  const comment = await Comment.create({
+    text,
+    owner: loggedInUser._id,
+    video: id,
+  });
+  video.comments.push(comment._id);
+  video.save();
+  res.sendStatus(201);
 };

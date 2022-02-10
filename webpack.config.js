@@ -1,7 +1,7 @@
 //  export default cannot be applied in webpack
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const BASE_URL = "./src/client/js/";
 module.exports = {
   plugins: [
     new MiniCssExtractPlugin({
@@ -9,9 +9,10 @@ module.exports = {
     }),
   ],
   entry: {
-    main: "./src/client/js/main.js",
-    sidebar: "./src/client/js/sidebar.js",
-    video: "./src/client/js/video.js",
+    main: BASE_URL + "main.js",
+    sidebar: BASE_URL + "sidebar.js",
+    video: BASE_URL + "video.js",
+    comment: BASE_URL + "comment.js",
   },
   mode: "development",
   watch: true,

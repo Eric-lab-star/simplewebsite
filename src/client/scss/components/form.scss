@@ -13,7 +13,7 @@ input {
   text-align: center;
 }
 
-form:not(.search_form) {
+form:not(.search_form, #videoCommentForm) {
   border: 2px solid white;
   background-color: $nav_color;
   border-radius: 5px;

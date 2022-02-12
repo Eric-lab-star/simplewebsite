@@ -1,0 +1,66 @@
+.addComments {
+  height: 80px;
+  width: 100%;
+
+  align-items: center;
+  #videoCommentForm {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-style: none;
+  }
+  textarea {
+    margin-top: 10px;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+
+    font-family: Arial, Helvetica, sans-serif;
+    resize: none;
+    outline: none;
+  }
+  .commentBtn {
+    border-top: 1px solid #2f2f2f;
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+    input {
+      background-color: gray;
+    }
+  }
+}
+
+.showComments {
+  margin-top: 25px;
+  font-size: 13px;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  background-color: black;
+  .commentImgBox img {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  .commentNameAndCreatedAt {
+    margin: 1px 0px 10px;
+    span {
+      margin-right: 5px;
+    }
+  }
+
+  .commentCreatedAt {
+    color: gray;
+    font-size: 13px;
+  }
+  .btnBox {
+    margin-top: 20px;
+  }
+
+  a i {
+    margin: 0px 5px;
+  }
+}

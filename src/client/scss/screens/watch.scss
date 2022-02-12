@@ -41,7 +41,7 @@
 .infoAndCommentsBox {
   width: 100%;
   margin: 10px;
-  background-color: rgba(128, 33, 33, 0.523);
+
   .infoBox {
     height: 100px;
     background-color: black;
@@ -115,10 +115,7 @@
   font-size: 15px;
 }
 
-//comment Box style
-.commentBox {
-  background-color: green;
-}
+//comment Box style -> commnet.scss
 
 .videogrid.watch {
   background-color: blue;

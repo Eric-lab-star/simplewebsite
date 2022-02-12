@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime";
 const playBtn = document.getElementById("playBtn");
 const video = document.querySelector("video");
 const muteBtn = document.getElementById("muteBtn");
@@ -14,6 +15,33 @@ const dislikeBtn = document.getElementById("dislikeBtn");
 const shareBtn = document.getElementById("shareBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const videoId = videoContainer.dataset.videoid;
+//
+
+const commentBox = document.querySelector(".commentBox");
+const apiPath = `/api/video/${videoId}/`;
+
+async function handleLikeAndDislikeBtn(event) {
+  const target = event.target;
+  if (
+    target.className === "far fa-thumbs-up" ||
+    target.className === "far fa-thumbs-down"
+  ) {
+    console.log(target.nextSibling);
+    target.nextSibling.innerText = parseInt(target.nextSibling.innerText) + 1;
+    const id = event.target.id;
+    const className = target.className;
+    const response = await fetch(apiPath + "addLikeAndDislike", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({ id, className }),
+    });
+  }
+}
+
+commentBox.addEventListener("click", handleLikeAndDislikeBtn);
+
 let volumeLevel;
 video.volume = soundBar.value;
 //play
@@ -97,7 +125,7 @@ function handleMousemove(event) {
     controls.classList.add("hide");
   }, 2000);
 }
-const apiPath = `/api/video/${videoId}/`;
+
 function handleEnded() {
   view.innerText = parseInt(view.innerText) + 1 + ` views | `;
 
@@ -155,6 +183,10 @@ function handleCopy() {
   });
 }
 
+function handleAddCommentLike(event) {
+  console.log(event.target);
+}
+
 playBtn.addEventListener("click", handlePlayBtn);
 muteBtn.addEventListener("click", handleMuteBtn);
 soundBar.addEventListener("input", handleSound);
@@ -167,5 +199,6 @@ video.addEventListener("ended", handleEnded);
 likeBtn.addEventListener("click", handleAddLike);
 dislikeBtn.addEventListener("click", handleAddDislike);
 shareBtn.addEventListener("click", handleCopy);
+
 timeRange.addEventListener("input", handleMoveToTimeRange);
 fullScreenBtn.addEventListener("click", handleFullScreen);

@@ -52,10 +52,39 @@ block content
                     
                 div.videoDescriptionBox
                         div.description #{video.description}            
+                
                 div.commentBox
-                    form#videoCommentForm
-                        textarea
-                        button Add Comment 
+                    if loggedInUser
+                        div.addComments
+                            form#videoCommentForm
+                                textarea(placeholder="Please write any comments")
+                                div.commentBtn
+                                    input(type="submit", value="Submit")
+                    div.fakeComentBox(data-loggedInUserAvatar=loggedInUser.avatarUrl,data-username=loggedInUser.name)
+                    each comment in video.comments.reverse()
+                        div.showComments
+                            div.commentImgBox
+                                img(src=comment.img)
+                            div.commentContents
+                                div.commentNameAndCreatedAt
+                                    span.commentUser=comment.username
+                                    span.commentCreatedAt=comment.createdAt
+                                div.commentText=comment.text
+                                div.btnBox
+                                    a.commentLike
+                                        i(class="far fa-thumbs-up", id=comment.id)
+                                        span #{comment.likes}
+                                    a.commentDislike
+                                        i(class="far fa-thumbs-down" id=comment.id)
+                                        span #{comment.dislikes}
+                                    if loggedInUser
+                                        if loggedInUser._id === comment.userId
+                                            a.deleteComment
+                                                <i class="far fa-trash-alt"></i>
+                                                span Delete
+                                    
+                                        
+
             div.videogrid.watch
                 each video in videos
                     +video(video) 
@@ -65,5 +94,6 @@ block content
                 
 block script
     <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-    script(src="/assets/js/video.js") 
-    script(src="/assets/js/comment.js") 
+    script(src="/assets/js/video.js")
+    if loggedInUser
+        script(src="/assets/js/comment.js") 

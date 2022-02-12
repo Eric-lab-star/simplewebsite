@@ -18,10 +18,10 @@ export const watch = async (req, res) => {
   const { id } = req.params;
   const videos = await Video.find().sort({ createdAt: "desc" });
   const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
-  const fullURL = req.protocol + "://" + req.get("host") + req.originalUrl;
-  res.render("watch", { pageTitle: video.title, video, videos, fullURL });
 
+  const fullURL = req.protocol + "://" + req.get("host") + req.originalUrl;
+
+  res.render("watch", { pageTitle: video.title, video, videos, fullURL });
   return;
 };
 
@@ -143,7 +143,10 @@ export const addComment = async (req, res) => {
     body: { text },
     session: { loggedInUser },
   } = req;
+  console.log(text);
   const video = await Video.findById(id);
+  const user = await User.findById(loggedInUser._id);
+
   if (!video) {
     return res.sendStatus(404);
   }
@@ -152,8 +155,34 @@ export const addComment = async (req, res) => {
     text,
     owner: loggedInUser._id,
     video: id,
+    img: loggedInUser.avatarUrl,
+    username: loggedInUser.name,
+    userId: loggedInUser._id,
   });
   video.comments.push(comment._id);
+  user.comments.push(comment._id);
   video.save();
-  res.sendStatus(201);
+  user.save();
+  res.status(201).json({ commnetId: comment._id });
+};
+
+export const addLikeAndDislike = async (req, res) => {
+  const {
+    body: { id, className },
+  } = req;
+
+  if (className === "far fa-thumbs-up") {
+    const comment = await Comment.findById(id);
+    comment.likes = comment.likes + 1;
+    comment.save();
+    res.sendStatus(200);
+    return;
+  }
+  if (className === "far fa-thumbs-down") {
+    const comment = await Comment.findById(id);
+    comment.dislikes = comment.dislikes + 1;
+    comment.save();
+    res.sendStatus(200);
+    return;
+  }
 };

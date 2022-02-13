@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/uploads", express.static("uploads"));
-app.use("/img", express.static("img"));
+app.use("/img", express.static("src/img"));
 // url, static("파일이름")
 app.use("/assets", express.static("assets"));
 app.use(

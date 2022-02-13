@@ -1,3 +1,11 @@
+.loggedInMessage {
+  display: flex;
+  padding: 10px;
+  font-size: 14px;
+  justify-content: center;
+  border-bottom: 1px solid #2f2f2f;
+}
+
 .addComments {
   height: 80px;
   width: 100%;

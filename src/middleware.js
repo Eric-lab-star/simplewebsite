@@ -12,6 +12,8 @@ export const uploadVideo = multer({
   limits: { fieldSize: 8601085 },
 });
 
+export const uploadThumbnail = multer({ dest: "uploads/thumbnail" });
+
 export const banLoggedInUser = (req, res, next) => {
   if (req.session.loggedInUser) {
     req.flash("error", "You are Logged In");

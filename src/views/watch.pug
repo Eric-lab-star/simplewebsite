@@ -4,7 +4,7 @@ block content
     div.empty
     div.contentBox
         div.watchVideo(data-videoId=video.id)
-            video(src="/" + video.path, )
+            video(src="/" + video.fileUrl, )
             div.controls
                 i(class="fas fa-play" id="playBtn")
                 i(class="fas fa-volume-up" id="muteBtn")
@@ -54,13 +54,20 @@ block content
                         div.description #{video.description}            
                 
                 div.commentBox
+                    if !loggedInUser
+                        div.loggedInMessage
+                            a(href="/login")
+                                div Login to write comment. Do you want to login? Click here!
+                                
+
                     if loggedInUser
                         div.addComments
                             form#videoCommentForm
                                 textarea(placeholder="Please write any comments")
                                 div.commentBtn
-                                    input(type="submit", value="Submit")
-                    div.fakeComentBox(data-loggedInUserAvatar=loggedInUser.avatarUrl,data-username=loggedInUser.name)
+                                    input(type="submit", value="Submit")                        
+                    if loggedInUser
+                        div.fakeComentBox(data-loggedInUserAvatar=loggedInUser.avatarUrl,data-username=loggedInUser.name)
                     each comment in video.comments.reverse()
                         div.showComments(id=comment.id)
                             div.commentImgBox

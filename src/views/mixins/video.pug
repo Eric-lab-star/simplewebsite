@@ -1,9 +1,19 @@
 
 mixin video(video)
 
-    div.video
-        a(href=`/video/${video.id}`)
-            img.videoThumb
-            div.title=video.title
-            div.views=video.views
-        div.date #{video.createdAt}
+    div.homeVideo
+        div.imgBox
+            a(href=`/video/${video.id}`)           
+                img.videoThumb(src="/" + video.thumbnailUrl)
+        div.videoInfo
+            div.videoOwner
+                if video.owner.avatarUrl
+                    img.avatar(src=video.owner.avatarUrl)
+                else 
+                    img.avatar(src=loggedInUser.avatarUrl)
+            div.viewsAndDateAndTitle
+                div.title=video.title
+                div.metaData
+                    div.owner=video.owner.name
+                    span.views #{video.views} views
+                    span.date #{video.createdAt}

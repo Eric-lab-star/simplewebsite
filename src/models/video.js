@@ -4,7 +4,8 @@ const videoSchema = mongoose.Schema({
   title: String,
   description: String,
   hashtag: [{ type: String }],
-  file: String,
+  fileUrl: { type: String, required: true },
+  thumbnailUrl: { type: String, required: true },
   createdAt: {
     type: String,
     default: new Date().toISOString().substring(0, 10),
@@ -12,7 +13,7 @@ const videoSchema = mongoose.Schema({
   comments: [
     { type: mongoose.Schema.Types.ObjectId, required: true, ref: "Comment" },
   ],
-  path: String,
+
   views: { type: Number, default: 0 },
   likes: { type: Number, default: 0 },
   dislikes: { type: Number, default: 0 },

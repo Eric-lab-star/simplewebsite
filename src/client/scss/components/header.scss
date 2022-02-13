@@ -46,7 +46,6 @@
 .search_form {
   width: 90%;
   height: 90%;
-  //padding: 0px 5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,17 +57,12 @@
   }
   input {
     &[type="text"] {
-      width: 30%;
+      width: 50%;
       height: 28px;
       padding: 0px 10px;
-      transition: 0.3s ease-in-out;
     }
     &button {
       background-color: $nav_color;
-    }
-
-    &[type="text"]:focus {
-      width: 100%;
     }
   }
 }

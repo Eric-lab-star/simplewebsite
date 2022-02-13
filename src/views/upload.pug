@@ -7,9 +7,10 @@ block content
                 
                 span 
                     label(for="video") Upload Video
-                input(type="file", name="video", id="video", accept="video/*", required)
-            
-            
+                input(type="file", name="videoFile", id="video", accept="video/*", required)
+                span 
+                    label(for="thumbnail") Upload Thumbnail
+                input(type="file", name="thumbnailFile", id="thumbnail", accept="image/*", required)
                 input(type="text", placeholder="Title", name="title", maxlength=20, required)
                 input(type="text", placeholder="Describtion", name="description", maxlength=20, required)
                 input(type="text", placeholder="Hashtag", name="hashtag", maxlength=20, required)                

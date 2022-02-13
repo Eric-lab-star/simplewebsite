@@ -12,11 +12,11 @@ block content
                 div Username: #{user.username}
                 div Name: #{user.name} 
                 div Email: #{user.email}
-        div.videoGrid
+        div.videogrid
             each video in user.videos
                 +video(video)
             else
-                span no video
+                span No video, upload your videos! 
         div.editLink
             a(href=`${user.id}/edit`) Edit Profile &rarr;
         

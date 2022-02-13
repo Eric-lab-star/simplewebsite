@@ -5,18 +5,23 @@ import Comment from "../models/Comment";
 export const home = async (req, res) => {
   const { key } = req.query;
 
-  let videos = await Video.find().sort({ createdAt: "desc" });
+  let videos = await Video.find().populate("owner").sort({ createdAt: "desc" });
+
   if (key) {
     videos = await Video.find({
       title: { $regex: new RegExp(key, "i") },
-    }).sort({ createdAt: "desc" });
+    })
+      .populate("owner")
+      .sort({ createdAt: "desc" });
   }
   res.render("home", { pageTitle: "home", videos });
 };
 
 export const watch = async (req, res) => {
   const { id } = req.params;
-  const videos = await Video.find().sort({ createdAt: "desc" });
+  const videos = await Video.find()
+    .populate("owner")
+    .sort({ createdAt: "desc" });
   const video = await Video.findById(id).populate("owner").populate("comments");
 
   const fullURL = req.protocol + "://" + req.get("host") + req.originalUrl;
@@ -33,7 +38,6 @@ export const getUpload = (req, res) => {
 
 export const postUpload = async (req, res) => {
   const { title, description, hashtag } = req.body;
-  const { path } = req.file;
   const {
     loggedInUser: { _id },
   } = req.session;
@@ -41,14 +45,15 @@ export const postUpload = async (req, res) => {
   const video = await Video.create({
     title,
     description,
-    path,
+    fileUrl: req.files.videoFile[0].path,
+    thumbnailUrl: req.files.thumbnailFile[0].path,
     hashtag: Video.formatHashtag(hashtag),
     owner: _id,
   });
 
-  await User.findByIdAndUpdate(_id, {
-    videos: video._id,
-  });
+  const user = await User.findById(_id);
+  user.videos.push(video._id);
+  user.save();
 
   res.redirect("/");
   return;
@@ -156,7 +161,7 @@ export const addComment = async (req, res) => {
     owner: loggedInUser._id,
     video: id,
     img: loggedInUser.avatarUrl,
-    username: loggedInUser.name,
+    username: loggedInUser.username,
     userId: loggedInUser._id,
   });
   video.comments.push(comment._id);
@@ -191,6 +196,10 @@ export const deleteComment = async (req, res) => {
   const {
     body: { id },
   } = req;
-  await Comment.findByIdAndDelete(id);
-  res.sendStatus(200);
+  const comment = await Comment.findByIdAndDelete(id);
+  if (comment) {
+    return res.sendStatus(200);
+  } else {
+    return res.sendStatus(404);
+  }
 };

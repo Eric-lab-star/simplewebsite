@@ -11,7 +11,6 @@
   height: 720px;
   display: flex;
   flex-direction: column;
-  background-color: black;
 }
 .watchVideo video {
   width: 100%;
@@ -44,7 +43,7 @@
 
   .infoBox {
     height: 100px;
-    background-color: black;
+
     .titleAndHashtagBox {
       .hashtag {
         color: #3da2f9;
@@ -78,7 +77,6 @@
     }
   }
   .uploaderInformationBox {
-    background-color: black;
     padding: 10px 0px;
     border-top: 1px solid rgba(80, 79, 79, 0.591);
 
@@ -90,6 +88,7 @@
       align-items: center;
       width: 100%;
       .uploaderImg {
+        margin-right: 10px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -109,7 +108,6 @@
 }
 .videoDescriptionBox {
   border-bottom: 1px solid rgba(80, 79, 79, 0.591);
-  background-color: black;
   margin-top: 0px;
   padding: 0px 150px 10px 50px;
   font-size: 15px;
@@ -118,6 +116,5 @@
 //comment Box style -> commnet.scss
 
 .videogrid.watch {
-  background-color: blue;
   width: 414px;
 }

@@ -7,7 +7,7 @@ const userSchema = Schema({
   username: { type: String, required: true },
   password: { type: String },
   email: { type: String, required: true },
-  avatarUrl: String,
+  avatarUrl: { type: String, default: "/img/newYearCard.jpg" },
   videos: [{ type: mongoose.Schema.Types.ObjectId, ref: "Video" }],
   comments: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Comment", required: true },

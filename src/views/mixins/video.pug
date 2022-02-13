@@ -4,7 +4,7 @@ mixin video(video)
     div.homeVideo
         div.imgBox
             a(href=`/video/${video.id}`)           
-                img.videoThumb(src="/" + video.thumbnailUrl)
+                img.videoThumb(src=video.thumbnailUrl)
         div.videoInfo
             div.videoOwner
                 if video.owner.avatarUrl

@@ -97,7 +97,7 @@ export const postEditProfile = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(
       id,
       {
-        avatarUrl: `/${file.path}`,
+        avatarUrl: file.location,
       },
       { new: true }
     );
@@ -114,13 +114,14 @@ export const postEditProfile = async (req, res) => {
       res.redirect(`/user/${id}`);
       return;
     }
+
     res.render("editProfile", {
       pageTitle: "Edit Profile",
       errorMessage: "this username or name or email exists",
     });
     return;
   }
-  console.log(file);
+
   const updateUser = await User.findByIdAndUpdate(
     id,
     {

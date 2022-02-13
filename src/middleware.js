@@ -1,18 +1,36 @@
-import req from "express/lib/request";
 import multer from "multer";
+import multerS3 from "multer-s3";
+import aws from "aws-sdk";
+
+const s3 = new aws.S3({
+  credentials: {
+    accessKeyId: process.env.AWS_ID,
+    secretAccessKey: process.env.AWS_SECRET,
+  },
+});
+
+const multerUploader = multerS3({
+  s3: s3,
+  bucket: `sleepingking-youtubeclone`,
+  acl: "public-read",
+});
+
 export const localsMiddleware = (req, res, next) => {
   res.locals.loggedInUser = req.session.loggedInUser;
   next();
 };
 
-export const uploadProfile = multer({ dest: "uploads/profile" });
+export const uploadProfile = multer({
+  dest: "uploads/profile",
+  limits: { fieldSize: 8601085 },
+  storage: multerUploader,
+});
 
 export const uploadVideo = multer({
   dest: "uploads/videos",
   limits: { fieldSize: 8601085 },
+  storage: multerUploader,
 });
-
-export const uploadThumbnail = multer({ dest: "uploads/thumbnail" });
 
 export const banLoggedInUser = (req, res, next) => {
   if (req.session.loggedInUser) {

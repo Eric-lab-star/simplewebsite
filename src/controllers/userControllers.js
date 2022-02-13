@@ -83,7 +83,7 @@ export const getEditProfile = (req, res) => {
   res.render("editProfile", { pageTitle: "Edit Profile" });
   return;
 };
-
+const isHeroku = process.env.NODE_ENV === "production";
 export const postEditProfile = async (req, res) => {
   const {
     file,
@@ -97,7 +97,7 @@ export const postEditProfile = async (req, res) => {
     const updateUser = await User.findByIdAndUpdate(
       id,
       {
-        avatarUrl: file.location,
+        avatarUrl: isHeroku ? file.location : "/" + file.path,
       },
       { new: true }
     );

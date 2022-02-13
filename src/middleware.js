@@ -9,9 +9,17 @@ const s3 = new aws.S3({
   },
 });
 
-const multerUploader = multerS3({
+const isHeroku = process.env.NODE_ENV === "production";
+
+const multerVideoUploader = multerS3({
   s3: s3,
-  bucket: `sleepingking-youtubeclone`,
+  bucket: `sleepingking-youtubeclone/videos`,
+  acl: "public-read",
+});
+
+const multerImgUploader = multerS3({
+  s3: s3,
+  bucket: `sleepingking-youtubeclone/images`,
   acl: "public-read",
 });
 
@@ -23,13 +31,13 @@ export const localsMiddleware = (req, res, next) => {
 export const uploadProfile = multer({
   dest: "uploads/profile",
   limits: { fieldSize: 8601085 },
-  storage: multerUploader,
+  storage: isHeroku ? multerImgUploader : undefined,
 });
 
 export const uploadVideo = multer({
   dest: "uploads/videos",
   limits: { fieldSize: 8601085 },
-  storage: multerUploader,
+  storage: isHeroku ? multerVideoUploader : undefined,
 });
 
 export const banLoggedInUser = (req, res, next) => {

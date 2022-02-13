@@ -7,6 +7,7 @@ import {
   removeDislike,
   addComment,
   addLikeAndDislike,
+  deleteComment,
 } from "../controllers/videoControllers";
 
 const apiRouter = express.Router();
@@ -18,6 +19,8 @@ apiRouter.post("/video/:id([a-f0-9]{24})/removeLikeBtn", removeLike);
 apiRouter.post("/video/:id([a-f0-9]{24})/addDislikeBtn", addDislike);
 apiRouter.post("/video/:id([a-f0-9]{24})/removeDislikeBtn", removeDislike);
 apiRouter.post("/video/:id([a-f0-9]{24})/comments", addComment);
+apiRouter.delete("/video/:id([a-f0-9]{24})/deleteComment", deleteComment);
+
 apiRouter.post("/video/:id([a-f0-9]{24})/addLikeAndDislike", addLikeAndDislike);
 
 export default apiRouter;

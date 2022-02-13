@@ -3,37 +3,47 @@ import "regenerator-runtime/runtime";
 const videoContainer = document.querySelector(".watchVideo");
 const form = document.getElementById("videoCommentForm");
 
-function addComment(text) {
-  const showComments = document.querySelector(".fakeComentBox");
+function addComment(text, commentId) {
+  const fakeCommentBox = document.querySelector(".fakeComentBox");
+  const showComments = document.createElement("div");
   showComments.classList.add("showComments");
-  const avatar = showComments.dataset.loggedinuseravatar;
-  const username = showComments.dataset.username;
-  showComments.innerHTML = `
-  <div class="commentImgBox">
+  showComments.id = commentId;
+  const avatar = fakeCommentBox.dataset.loggedinuseravatar;
+  const username = fakeCommentBox.dataset.username;
+  const fakeCommentImgBox = document.createElement("div");
+  fakeCommentImgBox.classList.add("commentImgBox");
+  const fakeCommentContents = document.createElement("div");
+  fakeCommentContents.classList.add("commentContents");
+  const numberSpan = document.createElement("span");
+  numberSpan.innerText = "0";
+  fakeCommentImgBox.innerHTML = `
     <img src=${avatar}>
-  </div>
-  <div class="commentContents">
+    `;
+  fakeCommentContents.innerHTML = `
     <div class="commentNameAndCreatedAt">
       <span class="commentUser">${username}</span>
       <span class="commentCreatedAt">${new Date().toLocaleDateString()}</span>
     </div>
     <div class="commentText">${text}</div>
     <div class="btnBox">
-      <a class="commentLike">
-        <i class="far fa-thumbs-up"></i>
+      <a class="commentLike" >
+        <i class="far fa-thumbs-up" id=${commentId}></i>
         <span>0</span>
       </a>
-      <a class="commentDislike">
-        <i class="far fa-thumbs-down"></i>
+      <a class="commentDislike" >
+        <i class="far fa-thumbs-down" id=${commentId}></i>
         <span>0</span>
       </a>
-      <a class="deleteComment">
-        <i class="far fa-trash-alt"></i>
+      <a class="deleteComment" >
+        <i class="far fa-trash-alt" id=${commentId}></i>
         <span>Delete</span>
       </a>
     </div>
-  </div>
   `;
+
+  showComments.appendChild(fakeCommentImgBox);
+  showComments.appendChild(fakeCommentContents);
+  fakeCommentBox.prepend(showComments);
 }
 
 async function handleSubmit(event) {
@@ -54,7 +64,10 @@ async function handleSubmit(event) {
   });
 
   if (response.status === 201) {
-    addComment(text);
+    const getJson = await response.json();
+    const id = getJson.commentId;
+    addComment(text, id);
+    console.log(id);
     textarea.value = "";
   }
 }

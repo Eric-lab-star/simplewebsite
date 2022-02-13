@@ -37,5 +37,8 @@ app.use("/", globalRouter);
 app.use("/user", userRouter);
 app.use("/video", videoRouter);
 app.use("/api", apiRouter);
-
-app.listen(40000, console.log("server is listening to http://localhost:40000"));
+const PORT = 40000;
+app.listen(
+  PORT,
+  console.log(`server is listening to http://localhost:${PORT}`)
+);

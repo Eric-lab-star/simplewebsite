@@ -143,7 +143,7 @@ export const addComment = async (req, res) => {
     body: { text },
     session: { loggedInUser },
   } = req;
-  console.log(text);
+
   const video = await Video.findById(id);
   const user = await User.findById(loggedInUser._id);
 
@@ -163,7 +163,7 @@ export const addComment = async (req, res) => {
   user.comments.push(comment._id);
   video.save();
   user.save();
-  res.status(201).json({ commnetId: comment._id });
+  res.status(201).json({ commentId: comment._id });
 };
 
 export const addLikeAndDislike = async (req, res) => {
@@ -185,4 +185,12 @@ export const addLikeAndDislike = async (req, res) => {
     res.sendStatus(200);
     return;
   }
+};
+
+export const deleteComment = async (req, res) => {
+  const {
+    body: { id },
+  } = req;
+  await Comment.findByIdAndDelete(id);
+  res.sendStatus(200);
 };

@@ -13,22 +13,19 @@ const view = document.querySelector(".views");
 const likeBtn = document.getElementById("likeBtn");
 const dislikeBtn = document.getElementById("dislikeBtn");
 const shareBtn = document.getElementById("shareBtn");
-const downloadBtn = document.getElementById("downloadBtn");
 const videoId = videoContainer.dataset.videoid;
 //
 
 const commentBox = document.querySelector(".commentBox");
 const apiPath = `/api/video/${videoId}/`;
-
+//
 async function handleLikeAndDislikeBtn(event) {
   const target = event.target;
   if (
     target.className === "far fa-thumbs-up" ||
     target.className === "far fa-thumbs-down"
   ) {
-    console.log(target.nextSibling);
-    target.nextSibling.innerText = parseInt(target.nextSibling.innerText) + 1;
-    const id = event.target.id;
+    const id = target.id;
     const className = target.className;
     const response = await fetch(apiPath + "addLikeAndDislike", {
       headers: {
@@ -37,6 +34,28 @@ async function handleLikeAndDislikeBtn(event) {
       method: "POST",
       body: JSON.stringify({ id, className }),
     });
+    console.log(target.nextElementSibling);
+    if (response.status === 200) {
+      target.nextElementSibling.innerText =
+        parseInt(target.nextElementSibling.innerText) + 1;
+    }
+    return;
+  }
+  if (target.className === "far fa-trash-alt") {
+    const id = target.id;
+
+    const response = await fetch(apiPath + "deleteComment", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+      body: JSON.stringify({ id }),
+    });
+
+    if (response.status === 200) {
+      const showComments = document.getElementById(id);
+      showComments.style.display = "none";
+    }
   }
 }
 
@@ -183,10 +202,6 @@ function handleCopy() {
   });
 }
 
-function handleAddCommentLike(event) {
-  console.log(event.target);
-}
-
 playBtn.addEventListener("click", handlePlayBtn);
 muteBtn.addEventListener("click", handleMuteBtn);
 soundBar.addEventListener("input", handleSound);
@@ -195,10 +210,11 @@ video.addEventListener("timeupdate", handleTime);
 video.addEventListener("mousemove", handleMousemove);
 video.addEventListener("timeupdate", handleMoveTimeRange);
 video.addEventListener("ended", handleEnded);
-
+//
 likeBtn.addEventListener("click", handleAddLike);
 dislikeBtn.addEventListener("click", handleAddDislike);
 shareBtn.addEventListener("click", handleCopy);
 
+//
 timeRange.addEventListener("input", handleMoveToTimeRange);
 fullScreenBtn.addEventListener("click", handleFullScreen);

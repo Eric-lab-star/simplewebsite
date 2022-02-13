@@ -62,7 +62,7 @@ block content
                                     input(type="submit", value="Submit")
                     div.fakeComentBox(data-loggedInUserAvatar=loggedInUser.avatarUrl,data-username=loggedInUser.name)
                     each comment in video.comments.reverse()
-                        div.showComments
+                        div.showComments(id=comment.id)
                             div.commentImgBox
                                 img(src=comment.img)
                             div.commentContents
@@ -80,7 +80,7 @@ block content
                                     if loggedInUser
                                         if loggedInUser._id === comment.userId
                                             a.deleteComment
-                                                <i class="far fa-trash-alt"></i>
+                                                i(class="far fa-trash-alt", id=comment.id)
                                                 span Delete
                                     
                                         

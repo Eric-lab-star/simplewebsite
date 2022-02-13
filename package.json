@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:server": "babel src -d build",
+    "start": "node build/app.js",
+    "build": "npm run  build:assets && npm run build:server",
+    "build:assets": "webpack --mode=production",
+    "build:server": "babel src -d build --ignore src/client",
     "dev:server": "nodemon",
-    "dev:assets": "webpack"
+    "dev:assets": "webpack --mode=development -w"
   },
   "repository": {
     "type": "git",

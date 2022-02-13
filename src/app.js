@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime";
 import "dotenv/config";
 import "./db";
 import express from "express";

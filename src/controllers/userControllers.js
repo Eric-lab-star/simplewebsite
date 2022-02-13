@@ -253,7 +253,7 @@ export const getGoogle = (req, res) => {
   const baseUrl = "https://accounts.google.com/o/oauth2/v2/auth";
   const config = {
     client_id: process.env.GG_CLIENT,
-    redirect_uri: "http://localhost:40000/endGG",
+    redirect_uri: "https://sleepingking-youtubeclone.herokuapp.com/endGG",
     response_type: "code",
     access_type: "offline",
     prompt: "consent",

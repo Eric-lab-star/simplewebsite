@@ -274,7 +274,7 @@ export const endGoogle = async (req, res) => {
     client_id: process.env.GG_CLIENT,
     code,
     grant_type: "authorization_code",
-    redirect_uri: "http://localhost:40000/endGG",
+    redirect_uri: "https://sleepingking-youtubeclone.herokuapp.com/endGG",
   };
   const params = new URLSearchParams(config);
   const finalURL = `${baseUrl}?${params}`;
